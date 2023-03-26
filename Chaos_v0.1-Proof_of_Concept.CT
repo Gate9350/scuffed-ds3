@@ -1,0 +1,882 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1337256522</ID>
+      <Description>"Open"</Description>
+      <Options moHideChildren="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+{$lua}
+openProcess("darksoulsiii.exe")
+[disable]
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>1337256500</ID>
+          <Description>"Codes per death"</Description>
+          <Options moHideChildren="1"/>
+          <Color>8000FF</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{$lua}
+if syntaxcheck then return end
+[enable]
+thecountdown = readInteger("[darksoulsiii.exe+47572b8]+98")
+
+ctmemrec = getAddressList().getMemoryRecordByDescription("chaostime")
+ctmemrec.Active = true
+
+dt = createTimer(getMainForm())
+dt.Interval = 50
+dt.OnTimer = function(timer)
+
+local checkermeme = readInteger("[darksoulsiii.exe+47572b8]+98")
+if checkermeme ~= thecountdown then
+ctmemrec.Active = false
+thecountdown = readInteger("[darksoulsiii.exe+47572b8]+98")
+ctmemrec.Active = true
+else
+end
+end
+dt.Enabled = true
+[DISABLE]
+dt.Enabled = false
+dt.destroy()
+ctmemrec.Active = false
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1337256487</ID>
+              <Description>"chaostime"</Description>
+              <Color>8000FF</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{$lua}
+if syntaxcheck then return end
+[enable]
+
+chaosarray = {} --array for generated memrec ids
+
+arrayof20 = {} --array for picking from hat
+for twentyarray = 696900,696920 do
+table.insert(arrayof20,twentyarray)
+end
+
+function setarandomvalue(randomval) --unoptimal I think but also I am lazy
+randomval = math.random(1,#arrayof20)
+randomval2 = randomval
+randomval = arrayof20[randomval]
+table.remove(arrayof20,randomval2)
+return randomval
+end
+
+for searching = 1,5 do --call the random value function a given amount of times
+epicchaos = setarandomvalue(epicchaos)
+table.insert(chaosarray,epicchaos)
+end
+
+
+for i,chaosid in ipairs(chaosarray) do
+chaosmemrec = getAddressList().getMemoryRecordByID(chaosid)
+chaosmemrec.Active = true
+end
+
+[disable]
+for i,chaosid in ipairs(chaosarray) do
+chaosmemrec = getAddressList().getMemoryRecordByID(chaosid)
+chaosmemrec.Active = false
+end
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1337256520</ID>
+          <Description>"Temporary code (on timer)"</Description>
+          <Options moHideChildren="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{$lua}
+if syntaxcheck then return end
+[enable]
+
+
+TEMPctmemrec = getAddressList().getMemoryRecordByDescription("TEMPchaostime")
+TEMPctmemrec.Active = true
+
+TEMPdt = createTimer(getMainForm())
+TEMPdt.Interval = 10000
+TEMPdt.OnTimer = function(timer)
+
+TEMPctmemrec.Active = false
+TEMPctmemrec.Active = true
+
+end
+TEMPdt.Enabled = true
+[DISABLE]
+TEMPdt.Enabled = false
+TEMPdt.destroy()
+TEMPctmemrec.Active = false
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1337256519</ID>
+              <Description>"TEMPchaostime"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{$lua}
+if syntaxcheck then return end
+[enable]
+
+temparray = {} --array for generated memrec ids
+
+arrayoftemp = {} --array for picking from hat
+for TempGrouparray = 525100,525107 do
+table.insert(arrayoftemp,TempGrouparray)
+end
+
+function setarandomTEMPvalue(TEMPrandomval) --unoptimal I think but also I am lazy
+TEMPrandomval = math.random(1,#arrayoftemp)
+TEMPrandomval2 = TEMPrandomval
+TEMPrandomval = arrayoftemp[TEMPrandomval]
+table.remove(arrayoftemp,TEMPrandomval2)
+return TEMPrandomval
+end
+
+for TEMPsearching = 1,1 do --call the random value function a given amount of times
+TEMPchaos = setarandomTEMPvalue(TEMPchaos)
+table.insert(temparray,TEMPchaos)
+end
+
+
+for i,TEMPchaosid in ipairs(temparray) do
+TEMPchaosmemrec = getAddressList().getMemoryRecordByID(TEMPchaosid)
+TEMPchaosmemrec.Active = true
+end
+
+[disable]
+for i,TEMPchaosid in ipairs(temparray) do
+TEMPchaosmemrec = getAddressList().getMemoryRecordByID(TEMPchaosid)
+TEMPchaosmemrec.Active = false
+end
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1337256521</ID>
+          <Description>"Groups"</Description>
+          <Options moHideChildren="1"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1337256178</ID>
+              <Description>"Group 1 - Always On"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>696900</ID>
+                  <Description>"weapon durability death kind"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+a31c60:
+mov [rcx+14],edi
+[disable]
+darksoulsiii.exe+a31c60:
+mov [rcx+14],edx
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>696901</ID>
+                  <Description>"armour durability damage steps equal to durability"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+a31970:
+mov [rcx+14],edi
+[disable]
+darksoulsiii.exe+a31970:
+mov [rcx+14],edx
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>696902</ID>
+                  <Description>"object on all bullet"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+97cb75:
+mov ecx,5A74a
+nop
+darksoulsiii.exe+6603b9:
+xor eax,eax
+nop
+[disable]
+darksoulsiii.exe+97cb75:
+mov ecx,[rcx+000000c8]
+darksoulsiii.exe+6603b9:
+movsx eax,word ptr [rax]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>696903</ID>
+                  <Description>"hitstop == atkobj"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+9d0714: //hitstoptype
+mov eax,02
+nop
+nop
+darksoulsiii.exe+9d07a8: //hitstoptime
+cvtsi2ss xmm1,[eax+62]
+[disable]
+darksoulsiii.exe+9d0714:
+movzx eax,byte ptr [rax+00000142]
+darksoulsiii.exe+9d07a8:
+movss xmm1,[rax+14]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>696904</ID>
+                  <Description>"low hit"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+62c1bf:
+mov byte ptr[rbx+00000cbc],01
+[disable]
+darksoulsiii.exe+62c1bf:
+mov byte ptr[rbx+00000cbc],-01
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>696905</ID>
+                  <Description>"foot sfx"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+e2dcaf: //footsfx
+mov rcx,rax
+[disable]
+darksoulsiii.exe+e2dcaf:
+mov ecx,[rdx+rax*4]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>696906</ID>
+                  <Description>"icon edits"</Description>
+                  <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+c1277e: //weapon
+movzx edi,word ptr [rax]
+nop
+nop
+nop
+nop
+darksoulsiii.exe+c12428: //goods
+movzx edi, word ptr [rcx+36]
+darksoulsiii.exe+c126c4: //accessory
+movzx edi,word ptr [rax+14]
+darksoulsiii.exe+c12723:
+movzx edi,word ptr [rax+30]
+nop
+nop
+nop
+darksoulsiii.exe+c1272c:
+movzx edi,word ptr [rax+30]
+nop
+nop
+nop
+
+[disable]
+darksoulsiii.exe+c1277e:
+movzx edi,word ptr [rax+000000BA]
+darksoulsiii.exe+c12428:
+movzx edi, word ptr [rcx+2c]
+darksoulsiii.exe+c126c4:
+movzx edi,word ptr [rax+22]
+darksoulsiii.exe+c12723:
+movzx edi,word ptr [rax+000000A2]
+darksoulsiii.exe+c1272c:
+movzx edi,word ptr [rax+000000A4]
+
+</AssemblerScript>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>1337256512</ID>
+                      <Description>"bonfire blank"</Description>
+                      <VariableType>Auto Assembler Script</VariableType>
+                      <AssemblerScript>[enable]
+darksoulsiii.exe+bf8ef7:
+xor edx,edx
+nop
+darksoulsiii.exe+bf8edc:
+xor eax,eax
+nop
+[disable]
+darksoulsiii.exe+bf8ef7:
+mov edx,[rdi+08]
+darksoulsiii.exe+bf8edc:
+mov eax,[rdi+10]
+</AssemblerScript>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>696907</ID>
+                  <Description>"knockbackdist == atkobj"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+e2629c:
+cvtsi2ss xmm6,[rax+62]
+[disable]
+darksoulsiii.exe+e2629c:
+movss xmm6,[rax+10]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>696908</ID>
+                  <Description>"upper arms"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+99c124:
+mov esi,2
+nop
+
+darksoulsiii.exe+e3f3c2:
+cvtsi2ss xmm1,[r9+04]
+
+darksoulsiii.exe+e3f3bd:
+cvtsi2ss xmm0,[r9]
+darksoulsiii.exe+e3f3ef:
+cvtsi2ss xmm1,[r9+04]
+
+darksoulsiii.exe+e3f444:
+cvtsi2ss xmm0,[r9+04]
+darksoulsiii.exe+e3f44f:
+cvtsi2ss xmm1,[r9+04]
+[disable]
+darksoulsiii.exe+99c124:
+mov esi,[rax+00000124]
+
+darksoulsiii.exe+e3f3c2:
+movss xmm1,[r9+04]
+
+darksoulsiii.exe+e3f3bd:
+movss xmm0,[r9]
+darksoulsiii.exe+e3f3ef:
+movss xmm1,[r9+0c]
+
+darksoulsiii.exe+e3f444:
+movss xmm0,[r9+28]
+darksoulsiii.exe+e3f44f:
+movss xmm1,[r9+2c]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>696909</ID>
+                  <Description>"real big feet dust"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+9cddc6:
+mov eax,4
+nop
+[disable]
+darksoulsiii.exe+9cddc6:
+mov rcx,[rax+60]
+mov eax,[rcx]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>696910</ID>
+                  <Description>"lots of throws"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+33cbb6: //throw id
+mov r15w,1004
+darksoulsiii.exe+e25f3b: //throw flag
+mov cl,01
+nop
+nop
+darksoulsiii.exe+e263f7: //attack type
+mov cl,02
+nop
+nop
+darksoulsiii.exe+9ec02e: //diffangmax
+cvtsi2ss xmm6,[rax]
+nop
+darksoulsiii.exe+9ebf4a: //diffangmaxmydef
+cvtsi2ss xmm0,[rax]
+nop
+[disable]
+darksoulsiii.exe+33cbb6:
+movzx r15d,word ptr [rax+68]
+darksoulsiii.exe+e25f3b:
+movzx ecx,byte ptr [rax+7d]
+darksoulsiii.exe+e263f7:
+movzx ecx,byte ptr [rax+77]
+darksoulsiii.exe+9ec02e:
+movss xmm6,[rax+10]
+darksoulsiii.exe+9ebf4a:
+movss xmm0,[rax+1c]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>696911</ID>
+                  <Description>"action button"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+cbd0dc: //radius
+cvtsi2ss xmm6,[rax+10]
+darksoulsiii.exe+cbd138: //allowangle
+mov dil,-4c
+[disable]
+darksoulsiii.exe+cbd0dc:
+movss xmm6,[rax+0C]
+darksoulsiii.exe+cbd138:
+mov edi,[rax+28]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>696912</ID>
+                  <Description>"actionrequest"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+99116b: //actionrequest
+movss xmm0,[rcx+a0]
+[disable]
+darksoulsiii.exe+99116b:
+movss xmm0,[rcx+98]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>696913</ID>
+                  <Description>"head big"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+8c880d:
+add [rdi+188],40a0
+nop
+nop
+[disable]
+darksoulsiii.exe+8c880d:
+mov eax,[rdi+00000184]
+mov [rsi+000020cc],eax
+
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>696914</ID>
+                  <Description>"bullet velocity = life"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+97c142:
+movss xmm7,[rdx+28]
+darksoulsiii.exe+97dde0:
+movss xmm5,[rcx+10]
+darksoulsiii.exe+97bb4d:
+movss xmm0,[rax+10]
+darksoulsiii.exe+97bb62:
+movss xmm7,[rax+10]
+[disable]
+darksoulsiii.exe+97c142:
+movss xmm7,[rdx+10]
+darksoulsiii.exe+97dde0:
+movss xmm5,[rcx+28]
+darksoulsiii.exe+97bb4d:
+movss xmm0,[rax+34]
+darksoulsiii.exe+97bb62:
+movss xmm7,[rax+38]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>696915</ID>
+                  <Description>"bullet noclip"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+97309a:
+mov ecx,1
+nop
+nop
+darksoulsiii.exe+97b1ec:
+mov ebx,1
+nop
+nop
+darksoulsiii.exe+979aec:
+mov eax,1
+nop
+nop
+darksoulsiii.exe+97a449:
+mov ecx,1
+nop
+nop
+darksoulsiii.exe+987685:
+mov eax,1
+nop
+nop
+[disable]
+darksoulsiii.exe+97309a:
+movzx ecx,byte ptr [rcx+9b]
+darksoulsiii.exe+97b1ec:
+movzx ebx,byte ptr [rax+9b]
+darksoulsiii.exe+979aec:
+movzx eax,byte ptr [rax+9b]
+darksoulsiii.exe+97a449:
+movzx ecx,byte ptr [rcx+9b]
+darksoulsiii.exe+987685:
+movzx eax,byte ptr [rax+9b]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>696916</ID>
+                  <Description>"bag bullets + atk 10 + penetrate + multihit"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+987b61:
+/*db 90 90 90
+db 90 90
+db 90 90 90
+db 90 90
+db 90 90
+db 90 90 90
+db 90 90
+db 90 90*/
+mov ebx,000001f8
+mov edi,0000000a
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+darksoulsiii.exe+97ce46:
+mov esi,49c0c
+db 90 90 90 90 90 90
+
+darksoulsiii.exe+98765f:
+db 01 //penetrate
+
+darksoulsiii.exe+973091:
+mov eax,[rcx+44]
+[disable]
+darksoulsiii.exe+987b61:
+test rax,rax
+db 74 05 //je darksoulsiii.exe+987b6b
+mov ebx,[rax+04] //sfx id
+db eb 02 //jmp darksoulsiii.exe+987b6d
+mov ebx,edi
+test rax,rax
+db 74 02 //je darksoulsiii.exe+987b74
+mov edi,[rax] //atk id
+
+darksoulsiii.exe+97ce46:
+mov esi,[rcx+08]
+test esi,esi
+db 0f 88 25 01 00 00 //js darksoulsiii.exe+97cf76
+
+darksoulsiii.exe+98765f:
+db 00
+
+darksoulsiii.exe+973091:
+mov eax,[rcx+58]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>696917</ID>
+                  <Description>"tdps (no seizure)"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+515b76: //fovYChange
+cvtsi2ss xmm1,edi
+darksoulsiii.exe+515aaa: //rotRangeMinX
+movss xmm0,[rcx+14]
+darksoulsiii.exe+86539e: //chrLockRangeMaxRadius
+xorps xmm2,xmm2
+nop
+nop
+[disable]
+darksoulsiii.exe+515b76:
+movss xmm1,[rax]
+darksoulsiii.exe+515aaa:
+movss xmm0,[rcx+04]
+darksoulsiii.exe+86539e:
+movss xmm2,[rdx+10]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>696918</ID>
+                  <Description>"Camera stuck"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+516fc2: //516fbc : cmp byte ptr [rsi+000002b3],01 - 80 BE B3020000 01
+db 01
+[disable]
+darksoulsiii.exe+516fc2:
+db 00
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>696919</ID>
+                  <Description>"all mobs chameleon"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+fe6cce:
+mov eax,5dc
+mov ebp,5dc
+db 90 90 90
+[disable]
+darksoulsiii.exe+fe6cce:
+push rax //50
+mov ebp,[rsp] //8b 2c 24
+pop rax //58
+test eax,eax //85 c0
+js darksoulsiii.exe+8cf05f //0f88 84838eff
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>696920</ID>
+                  <Description>"death pickup"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+49454a:
+mov r9d,16346
+nop
+nop
+[disable]
+darksoulsiii.exe+49454a:
+mov rcx,[rax+60]
+mov r9d,[rcx+10]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337256517</ID>
+              <Description>"Group 2 - Temporary"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>525100</ID>
+                  <Description>"body z axis "</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+5c4aa6:
+db 90 90 90 90 90
+[disable]
+darksoulsiii.exe+5c4aa6:
+movdqa [rdi+30],xmm1
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>525101</ID>
+                  <Description>"no angle update"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+9db3ba:
+db 90 90 90 90 90
+[disable]
+darksoulsiii.exe+9db3ba:
+movdqa [rcx+70],xmm4
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>525102</ID>
+                  <Description>"98% purple"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>define(fading,[[[[[darksoulsiii.exe+4791a38]+8]+8]+0]+28]+0)
+[enable]
+
+fading+1a0:
+dd (float)0.3
+dd (float)0.1
+dd (float)0.2
+dd (float)0.98
+
+fading+1b8:
+dd (float)5
+[disable]
+
+fading+1a0:
+dd 0
+dd 0
+dd 0
+dd 0
+
+fading+1b8:
+dd 0
+
+fading+190:
+dd 0
+dd 0
+dd 0
+dd 0
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>525103</ID>
+                  <Description>"instant curse"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+8415b5:
+mov edx,2d
+nop
+nop
+[disable]
+darksoulsiii.exe+8415b5:
+mov edx,[rax+rbp+000001B8]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>525104</ID>
+                  <Description>"lodparam blank"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+d1d038: //lv_01
+db 90 90 90 90
+darksoulsiii.exe+d1d033: //lv_12
+db 90 90 90 90 90
+darksoulsiii.exe+d1ce85: //lv_23
+db 90 90 90 90 90
+[disable]
+darksoulsiii.exe+d1d038:
+mulss xmm2,[rdx]
+darksoulsiii.exe+d1d033:
+mulss xmm0,[rdx+08]
+darksoulsiii.exe+d1ce85:
+mulss xmm0,[rbx+14]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>525105</ID>
+                  <Description>"soul + motion + [effend]"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+9fec09: //soul
+mov ecx,20
+nop
+darksoulsiii.exe+a0815d: //motion interval
+movss xmm0,[rax+10]
+//darksoulsiii.exe+a0578b: //effect endurance
+//movss xmm0,[rax+4]
+[disable]
+darksoulsiii.exe+9fec09:
+mov ecx,[rcx+ec]
+darksoulsiii.exe+a0815d:
+movss xmm0,[rax+c]
+//darksoulsiii.exe+a0578b:
+//movss xmm0,[rax+8]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>525106</ID>
+                  <Description>"all bullets are 113"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+e26fd7:
+db ba 1a 00 00 00 //mov edx,1a
+[disable]
+darksoulsiii.exe+e26fd7:
+db 41 8b 54 c3 04 //mov edx,[r11+rax*8+04]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>525107</ID>
+                  <Description>"speed tied to animation"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+9a3dc5:
+cvtsi2ss xmm0,[rbx+6c]
+nop
+nop
+nop
+[disable]
+darksoulsiii.exe+9a3dc5:
+movss xmm0,[rbx+a58]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337256518</ID>
+              <Description>"Reserve group"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>7700</ID>
+                  <Description>"speed tied to ???"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+9a3dc5:
+cvtsi2ss xmm0,[rbx+888]
+[disable]
+darksoulsiii.exe+9a3dc5:
+movss xmm0,[rbx+a58]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>7701</ID>
+                  <Description>"armour durability death"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+a31810:
+db 90 90 90
+[disable]
+darksoulsiii.exe+a31810:
+mov eax,[rcx+14]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>7702</ID>
+                  <Description>"weapon durability death"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+a31c60:
+mov [rcx+14],eax
+[disable]
+darksoulsiii.exe+a31c60:
+mov [rcx+14],edx
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>7703</ID>
+                  <Description>"no spstay (conflict code)"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+9e568a: //writes to idle animation
+xor edi,edi
+[disable]
+darksoulsiii.exe+9e568a:
+mov edi,edx
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>7704</ID>
+                  <Description>"tdps pov (seizure warning)"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+darksoulsiii.exe+515b76: //fovYChange
+cvtsi2ss xmm1,edi
+darksoulsiii.exe+515aaa: //rotRangeMinX
+cvtsi2ss xmm0,r8
+darksoulsiii.exe+86539e: //chrLockRangeMaxRadius
+xorps xmm2,xmm2
+nop
+nop
+[disable]
+darksoulsiii.exe+515b76:
+movss xmm1,[rax]
+darksoulsiii.exe+515aaa:
+movss xmm0,[rcx+04]
+darksoulsiii.exe+86539e:
+movss xmm2,[rdx+10]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
